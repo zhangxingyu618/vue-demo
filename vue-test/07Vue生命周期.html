@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <script src="vue.js"></script>
+</head>
+<body>
+    <div id="app">
+        <h2 id="h2">{{msg}}</h2>
+        <input type="button" value="修改msg" @click="msg='no'">
+
+    </div>
+
+
+    <script>
+        var vm = new Vue({
+            el:'#app',
+            data:{
+                msg:"ok",
+
+            },
+            methods: {
+                show(){
+                    console.log("执行了show方法！")
+                }
+            },
+            // ---------------生命周期函数------------------
+            beforeCreate() { 
+                // 组件创建期间的第一个生命周期函数，表示实例被完全创建出来之前执行
+                // console.log(this.msg);
+                // this.show();
+                // 在 beforeCreate 生命周期函数执行时 data 和 methods 中的数据都没有被初始化
+                
+            },
+            created() {
+                // 组件创建期间的第二个生命周期函数
+                // console.log(this.msg);
+                // this.show();
+                // 在 created 生命周期函数执行时 data 和 methods 中的数据已经完成初始化
+                
+            },
+            beforeMount() {
+                //组件创建期间的第三个生命周期函数，此时模板已经在内存中编译完成，但是尚未将模板渲染到页面中去
+                // console.log(document.getElementById('h2').innerText)
+                // 在 beforMount 生命函数执行时 页面中的元素还没有被真正替换，只是在内存中完成了模板
+
+            },
+            mounted() {
+                // 组件创建期间的第四个生命周期函数，表示内存中的模板已经挂在到了页面到中去，用户就可以看到渲染好的页面了
+                // console.log(document.getElementById('h2').innerText)
+                // mounted是实例创建期间最后一个生命周期函数，当执行完mounted就表示实例已经被完全创建好了，
+                // 此时如果没有其它操作，这个实例就静静的在内存中
+            },
+            beforeUpdate() {
+                //运行中的第一个生命周期函数，此时数据发生了改变，但是页面还没有被更新
+                // console.log("此时界面上的数据是:"+document.getElementById('h2').innerText)
+                // console.log("data中的数据是:"+this.msg)
+                // 此时 data中的数据已更新但是页面中的数据还是旧的，并未发生页面数据的更心同步
+
+            },
+            updated() {
+                //运行中第二个生命周期函数，此时数据已经完成页面的更新
+                // console.log("此时界面上的数据是:"+document.getElementById('h2').innerText)
+                // console.log("data中的数据是:"+this.msg)
+                // 此时页面中和data中的数据已经保持同步 完成更新
+            },
+            beforeDestroy() {
+                // vue实例已经从运行阶段进入销毁阶段 
+                // 此时实例data以及methods等 还在可用状态，并没有完全进入销毁
+            },
+            destroyed() {
+                // vue实例已经完成销毁
+                // 此时组件中所有的数据方法都是不可用了
+            },
+
+        })
+    </script>
+</body>
+</html>

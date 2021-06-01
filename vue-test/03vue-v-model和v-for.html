@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link rel="stylesheet" href="css-1.css">
+    <script src="vue.js"></script>
+</head>
+<body>
+    <div id="app">
+        <div>
+            <h1>{{a}}</h1>
+            <!-- v-model双向数据绑定  v-bind单向数据绑定 -->
+            <input type="text" name="" id="" v-model="text" width="100%">
+            <h2 :style = "style1">{{text}}</h2>
+            <!-- v-for循环数组 -->
+            <p v-for="user in list">ID: {{user.id}}--- name: {{user.name}}</p>
+        </div>
+    </div>
+
+
+    <script>
+        var vm = new Vue({
+            el :'#app',
+            data:{
+                a:111,
+                b:'bbb',
+                text:'',
+                style1:{color:"red" },
+                list:[
+                    {id:1,name:"zx1"},
+                    {id:2,name:"zx2"},
+                    {id:3,name:"zx3"},
+                    {id:4,name:"zx4"},
+
+                ]
+            },
+            methods: {
+                
+            },
+
+        })
+    </script>
+</body>
+</html>

@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <script src="vue.js"></script>
+    <title>记事本</title>
+    <style>
+        * {
+            padding: 0;
+            margin: 0;
+            font-size: 25px;
+        }
+
+        .table {
+            margin: 200px auto;
+            width: 300px;
+            background-color: rgb(158, 135, 222);
+        }
+        input{
+            width: 300px;
+        }
+        .b{
+            display:none;
+            float: right;
+        }
+        .a:hover
+            .b{
+            display:inline;
+        }
+    </style>
+</head>
+
+<body>
+    <div id="app" class="table">
+        <input type="text" v-model="thing" @keyup.enter="add" autofocus>
+        <div class="a" v-for="(item,index) in things">
+            <span>{{index+1}}.{{item}}</span>
+            <a class="b" value='index' @click="del(index)"> × </a>
+        </div>
+        <div>
+            <div v-show="things.length!=0" style="font-size: 10px; margin-top: 5px;">还有 {{things.length}} 个任务</div>
+        </div>
+    </div>
+
+</body>
+<script>
+    var vm = new Vue({
+        el: '#app',
+        data: {
+            things: ["吃饭", "睡觉", "娱乐"],
+            thing: ""
+        },
+        methods: {
+            add() {
+                this.things.push(this.thing)
+            },
+            del(el){
+                console.log(el)
+                this.things.splice(el,1)
+            }
+        },
+    })
+</script>
+
+</html>

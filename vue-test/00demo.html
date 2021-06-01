@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>demo00</title>
+    <script src="vue.js"></script>
+    <style>
+        *{
+            padding: 0;
+            margin: 0;
+        }
+        .bgcolor{
+            background-color: crimson;
+        }
+    </style>
+</head>
+<body>
+    <div id="app">
+        <div>{{date}}</div>
+        <a v-bind:href="baidu">百度</a>
+        <h1 v-bind:class="{'bgcolor':use}">aaaa</h1>
+        <input type="button" value="转变" @click="turn">
+        <input type="button" value="弹出" @click="pop">
+        <input type="text" v-model="name">
+        <span>{{name}}</span>
+    </div>
+</body>
+<script type="text/javascript">
+    var date=111
+    var vm = new Vue({
+        el:'#app',
+        data:{
+            date:2222,
+            baidu:'https://www.baidu.com',
+            use:false,
+            name:""
+        },
+        methods: {
+            turn(){
+                this.use=!this.use
+            },
+            pop(){
+                var value = 'zhangxingyu'
+                alert(value.charAt(0).toUpperCase() + value.slice(1))
+                console.log(vm.date,vm.$dateS)
+
+            }
+            
+        },
+    })
+
+</script>
+</html>

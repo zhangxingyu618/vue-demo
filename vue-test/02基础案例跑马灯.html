@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <script src="vue.js"></script>
+</head>
+
+<body>
+    <div id="app">
+        <h2>{{msg}}</h2>
+        <input type="button" value="开始" @click='start'>
+
+    </div>
+
+    <script>
+        var vm = new Vue({
+            el: '#app',
+            data: {
+                msg: '稳住，我们能赢~~~~',
+            },
+            methods: {
+                start() {
+                    setInterval(() => {
+                        var start = this.msg.substring(0, 1)
+                        var end = this.msg.substring(1)
+                        this.msg = end + start
+                    }, 400);
+
+                }
+            },
+
+        })
+    </script>
+</body>
+
+</html>

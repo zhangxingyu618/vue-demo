@@ -1,0 +1,175 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+
+    <script src="vue.js"></script>
+    <script src="https://apps.bdimg.com/libs/jquery/2.1.4/jquery.min.js">
+    </script>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.4.1/dist/css/bootstrap.min.css"
+        integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.4.1/dist/js/bootstrap.min.js"
+        integrity="sha384-wfSDF2E50Y2D1uUdj0O3uMBJnjuUD4Ih7YwaYd1iqfktj0Uod8GCExl3Og8ifwB6" crossorigin="anonymous">
+    </script>
+</head>
+
+<body>
+    <div id="app" style="margin: 10px;">
+
+        <div class="panel panel-primary">
+            <div class="panel-heading">
+                <h3 class="panel-title " style="color:rgb(56, 56, 216);">添加品牌</h3>
+            </div>
+            <div class="panel-body" form:inline>
+                <label for="">
+                    Id:
+                    <input type="text" name="" id="" v-model="id">
+                </label>
+                <label for="">
+                    Name:
+                    <input type="text" name="" id="" v-model="name" @keyup.enter="add">
+                </label>
+                <!-- 添加按钮 -->
+                <input type="button" value="添加" class="btn btn-primary" @click="add">
+
+                <label for="">
+                    搜索关键字：
+                    <!-- 自定义获取焦点指令  更改颜色指令   颜色参数指令可自定义-->
+                    <input type="text" name="" id="" v-model="keywords" v-focus v-color="'green'">
+                </label>
+
+            </div>
+        </div>
+
+        <table class="table table-bordered table-hover" style="width: 70%;">
+            <thead>
+                <tr>
+                    <!-- Id Name Ctime Operation -->
+                    <th>编号</th>
+                    <th>名称</th>
+                    <th>时间</th>
+                    <th>操作</th>
+                </tr>
+            </thead>
+            <tbody>
+                <!-- <tr v-for="(item, index) in list" :key="item.id"> -->
+                <tr v-for="(item, index) in search(keywords)" :key="item.id">
+                    <td>{{item.id}}</td>
+                    <td v-text="item.name"></td>
+                    <td>{{item.ctime}}</td>
+                    <td>
+                        <a href="" @click.prevent='del(item.id)'>删除</a>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+
+    </div>
+
+    <script>
+        // 自定义全局指令 v-focus 用 Vue.directive（）
+        Vue.directive('focus', {
+            bind: function (el) { //每当指令绑定到元素上时  会执行此函数，只执行一次
+                // el.focus();
+            },
+            inserted: function (el) { //元素插入DOM时执行 触发一次
+                el.focus();
+                // 和js行为相关的操作放在 inserted 中去执行，防止js行为不生效
+            },
+            updated: function (el) { //更新时执行，可多次触发
+
+            }
+        })
+        // 自定义改变颜色的全局指令 v-color
+        Vue.directive('color', {
+            bind: function (el, binding) {
+                // el.style.color = 'red'
+                // 和样式有关的行为 一般都可以在 bind 中执行
+                el.style.color = binding.value
+            }
+        })
+
+
+        var vm = new Vue({
+            el: "#app",
+            data: {
+                id: "",
+                name: "",
+                keywords: '',
+                list: [{
+                        id: 1,
+                        name: "奔驰",
+                        ctime: new Date(),
+                    },
+                    {
+                        id: 2,
+                        name: "宝马",
+                        ctime: new Date()
+                    },
+                    {
+                        id: 3,
+                        name: "玛莎拉蒂",
+                        ctime: new Date()
+                    },
+                ],
+
+
+            },
+            methods: {
+                add() {
+
+                    var car = {
+                        id: this.id,
+                        name: this.name,
+                        ctime: new Date()
+                    }
+
+                    if (this.id != '' && this.name != '') {
+                        this.list.push(car);
+                        this.id = this.name = "";
+                    }
+                },
+
+                del(id) {
+                    // this.list.some((item, i) => {
+                    //     if (item.id == id) {
+                    //         this.list.splice(i, 1);
+                    //            return true;
+                    //     }
+                    // })
+
+                    var index = this.list.findIndex((item) => {
+                        if (item.id == id) {
+                            return true;
+
+                        }
+                    });
+                    this.list.splice(index, 1);
+                },
+                search(keywords) {
+                    // var newList = []
+                    // this.list.forEach(item=> {
+                    //     if(item.name.indexOf(keywords) !=-1){
+                    //         newList.push(item)
+                    //     }
+                    // });
+                    // return newList
+                    // 过滤器
+                    return this.list.filter(item => {
+                        // if(item.name.indexOf(keywords) !=-1)
+                        if (item.name.includes(keywords)) {
+                            return item;
+                        }
+                    })
+
+                }
+            },
+
+        })
+    </script>
+</body>
+
+</html>

@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link rel="stylesheet" href="css-1.css">
+    <script src="vue.js"></script>
+</head>
+
+<body>
+    <div id="vue_1">
+        <span class="class1">{{a}}</span>
+        <span>{{b}}</span>
+        <hr>
+        <h3 v-if="c">显示1</h3>
+
+        <!-- v-bind 缩写 : -->
+        <div v-bind:class="d">显示2</div>
+        <!-- <div :class="d">显示2</div> -->
+        <div v-bind:class="{'class1':c}">显示3</div>
+        <!-- v-on缩写 @  -->
+        <input type="button" value="按钮" v-on:click="show">
+        <!-- <input type="button" value="按钮" @click="show"> -->
+    </div>
+
+</body>
+<script type="text/javascript">
+    var vm = new Vue({
+        el: '#vue_1',
+        data: {
+            a: 123,
+            b: 456,
+            c: true,
+            d: "class1"        
+        },
+        methods: {
+            show(){
+                alert("hello")
+            }
+        },
+    })
+    vm.a = "改了";
+    vm.c=false;
+</script>
+
+</html>
